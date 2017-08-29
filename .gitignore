@@ -1,0 +1,6 @@
+# Files with weights
+
+
+SegNet/Models/Training
+SegNet/Models/weights
+SegNet/Models/Inference
