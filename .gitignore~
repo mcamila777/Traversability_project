@@ -4,3 +4,4 @@
 SegNet/Models/Training
 SegNet/Models/weights
 SegNet/Models/Inference
+Segmentation_data/

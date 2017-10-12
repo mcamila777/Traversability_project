@@ -29,7 +29,7 @@ net = caffe.Net(args.model,
 #Gobal Acc
 glob_acc_accum = []
 
-savePath = '/home/mariacamila/Segmentation_data/examp_feat_maps'
+savePath = '../Traversability_project/Segmentation_data/examp_feat_maps'
 
 for i in range(0, args.iter):
 
