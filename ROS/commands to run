@@ -1,0 +1,8 @@
+rosbag play /home/user/Traversability_project/Segmentation_data/BAGS/regression_BAGS/test01.bag 
+
+rosrun beginner_tutorials listenerCamera.py
+rosrun beginner_tutorials listenerVel.py
+rosrun beginner_tutorials timeSyncCamVel.py
+
+rosrun beginner_tutorials extractDataBag.py
+
