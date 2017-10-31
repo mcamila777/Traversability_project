@@ -30,7 +30,7 @@ def extractDataBag():
 	#hello_str = "hello world %s" % rospy.get_time()
 	for topic,msg,t in rosbag.Bag(bagPath).read_messages(topics=['/camera/rgb/image_raw','/cmd_vel']):
 		if not rospy.is_shutdown():
-			print("TimeStamp:" , t)
+			print("TimeStamp:" , t.toSec())
 			#sprint("topic:" , topic)
 
 			if(topic == '/camera/rgb/image_raw'):
@@ -48,7 +48,7 @@ def extractDataBag():
 				camCounter = camCounter +1
 				print("Image saved")
 				#Acum time stamp
-				camTimeStampList.append(t)
+				camTimeStampList.append(t.toSec())
 
 			elif topic == '/cmd_vel':
 				#print("eyyyyy '/cmd_vel'")
@@ -62,7 +62,7 @@ def extractDataBag():
 				velCounter = velCounter +1
 				print("Vel saved")
 				#Acum time stamp
-				velTimeStampList.append(t)	
+				velTimeStampList.append(t.toSec())	
 		
 	#bag.close()    
 	#Save time stamp arrays
