@@ -5,7 +5,7 @@ layer {
   top: "data"
   top: "label"
   dense_image_data_param {
-    source:  "imageVelDataset/imagesFileOct18.txt"  #imagesFileOct23
+    source:  "imageVelDataset/imagesCV2_txt/imagesFileOct18.txt"  #imagesFileOct23
 		#"SegNet/CamVid/test.txt" Change this to the absolute path to your data file
     batch_size: 1
   }
