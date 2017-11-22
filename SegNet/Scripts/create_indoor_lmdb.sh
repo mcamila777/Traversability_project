@@ -3,12 +3,12 @@
 # N.B. set the path to the imagenet train + val data dirs
 set -e
 
-EXAMPLE=examples/imagenet
-DATA=data/ilsvrc12
+EXAMPLE=Traversability_project/imageVelDataset/all_LMDB
+DATA=Traversability_project/imageVelDataset/augmented_data_txt
 TOOLS=build/tools
 
-TRAIN_DATA_ROOT=/path/to/imagenet/train/
-VAL_DATA_ROOT=/path/to/imagenet/val/
+TRAIN_DATA_ROOT=Traversability_project/imageVelDataset/all_augmented_data
+VAL_DATA_ROOT=Traversability_project/imageVelDataset/all_augmented_data
 
 # Set RESIZE=true to resize the images to 256x256. Leave as false if images have
 # already been resized using another tool.
@@ -43,9 +43,9 @@ GLOG_logtostderr=1 $TOOLS/convert_imageset \
     --shuffle \
     $TRAIN_DATA_ROOT \
     $DATA/train.txt \
-    $EXAMPLE/ilsvrc12_train_lmdb
+    $EXAMPLE/indoor_train_lmdb
 
-echo "Creating val lmdb..."
+echo "Creating test lmdb..."
 
 GLOG_logtostderr=1 $TOOLS/convert_imageset \
     --resize_height=$RESIZE_HEIGHT \
@@ -53,6 +53,6 @@ GLOG_logtostderr=1 $TOOLS/convert_imageset \
     --shuffle \
     $VAL_DATA_ROOT \
     $DATA/val.txt \
-    $EXAMPLE/ilsvrc12_val_lmdb
+    $EXAMPLE/indoor_test_lmdb
 
 echo "Done."
