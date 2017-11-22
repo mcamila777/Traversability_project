@@ -52,7 +52,7 @@ GLOG_logtostderr=1 $TOOLS/convert_imageset \
     --resize_width=$RESIZE_WIDTH \
     --shuffle \
     $VAL_DATA_ROOT \
-    $DATA/val.txt \
+    $DATA/test.txt \
     $EXAMPLE/indoor_test_lmdb
 
 echo "Done."
