@@ -7,8 +7,8 @@ EXAMPLE=Traversability_project/imageVelDataset/all_LMDB
 DATA=Traversability_project/imageVelDataset/augmented_data_txt
 TOOLS=Traversability_project/SegNet/caffe-segnet/build/tools
 
-TRAIN_DATA_ROOT=Traversability_project/imageVelDataset/all_augmented_data
-VAL_DATA_ROOT=Traversability_project/imageVelDataset/all_augmented_data
+TRAIN_DATA_ROOT=Traversability_project/imageVelDataset/all_augmented_data/
+VAL_DATA_ROOT=Traversability_project/imageVelDataset/all_augmented_data/
 
 # Set RESIZE=true to resize the images to 256x256. Leave as false if images have
 # already been resized using another tool.
