@@ -5,7 +5,7 @@ set -e
 
 EXAMPLE=Traversability_project/imageVelDataset/all_LMDB
 DATA=Traversability_project/imageVelDataset/augmented_data_txt
-TOOLS=build/tools
+TOOLS=$CAFFE_ROOT/build/tools
 
 TRAIN_DATA_ROOT=Traversability_project/imageVelDataset/all_augmented_data
 VAL_DATA_ROOT=Traversability_project/imageVelDataset/all_augmented_data
@@ -24,14 +24,14 @@ fi
 if [ ! -d "$TRAIN_DATA_ROOT" ]; then
   echo "Error: TRAIN_DATA_ROOT is not a path to a directory: $TRAIN_DATA_ROOT"
   echo "Set the TRAIN_DATA_ROOT variable in create_imagenet.sh to the path" \
-       "where the ImageNet training data is stored."
+       "where the training images data is stored."
   exit 1
 fi
 
 if [ ! -d "$VAL_DATA_ROOT" ]; then
   echo "Error: VAL_DATA_ROOT is not a path to a directory: $VAL_DATA_ROOT"
   echo "Set the VAL_DATA_ROOT variable in create_imagenet.sh to the path" \
-       "where the ImageNet validation data is stored."
+       "where the validation images data is stored."
   exit 1
 fi
 
