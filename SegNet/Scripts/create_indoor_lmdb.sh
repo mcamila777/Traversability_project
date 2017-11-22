@@ -5,7 +5,7 @@ set -e
 
 EXAMPLE=Traversability_project/imageVelDataset/all_LMDB
 DATA=Traversability_project/imageVelDataset/augmented_data_txt
-TOOLS=$CAFFE_ROOT/build/tools
+TOOLS=$CAFFE_ROOT\build/tools
 
 TRAIN_DATA_ROOT=Traversability_project/imageVelDataset/all_augmented_data
 VAL_DATA_ROOT=Traversability_project/imageVelDataset/all_augmented_data
