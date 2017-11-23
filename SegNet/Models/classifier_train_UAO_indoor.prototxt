@@ -1,15 +1,16 @@
 name: "VGG_ILSVRC_16_layer"
 layer {
   name: "data"
-  type: "DenseImageData"
+  type:  "Data"
   top: "data"
-  top: "label"
-  dense_image_data_param {
+  #top: "label"
+  data_param { 
     source: "imageVelDataset/all_LMDB/indoor_train_lmdb"
 		# Change this to the absolute path to your data file
-    batch_size: 32 #4   			
+    batch_size: 256
+    backend: LMDB  			
 		# Change this number to a batch size that will fit on your GPU
-    shuffle: true
+    #shuffle: true
   }
 }
 layer {
@@ -793,26 +794,23 @@ layer {
 # Last pool layer - End encoder
 #----------------------------------------------------------------------------
 
+
 layer {
-  name: "fc8"
+  name: "fc6"
   type: "InnerProduct"
-  # learning rate and decay multipliers for the weights
-  param { lr_mult: 1 decay_mult: 1 }
-  # learning rate and decay multipliers for the biases
-  param { lr_mult: 2 decay_mult: 0 }
-  inner_product_param {
-    num_output: 1000
-    weight_filler {
-      type: "gaussian"
-      std: 0.01
-    }
-    bias_filler {
-      type: "constant"
-      value: 0
-    }
-  }
   bottom: "pool5"
-  top: "fc8"
+  top: "fc6"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  inner_product_param {
+    num_output: 4096
+  }
 }
 
 #----------------------------------------------------------------------------
@@ -820,21 +818,16 @@ layer {
 layer {
   name: "loss_2"
   type: "SoftmaxWithLoss"
-  bottom: "fc8"
+  bottom: "fc6"
   bottom: "label"
   top: "loss_2"
   softmax_param {engine: CAFFE}
-  loss_param: {  
-    
 
-
-
-  }
 }
 layer {
   name: "accuracy_2"
   type: "Accuracy"
-  bottom: "SoftmaxWithLoss"
+  bottom: "fc6"
   bottom: "label"
   top: "accuracy_2"
   top: "per_class_accuracy"
