@@ -3,11 +3,11 @@ layer {
   name: "data"
   type:  "Data"
   top: "data"
-  #top: "label"
+  top: "label"
   data_param { 
     source: "imageVelDataset/all_LMDB/indoor_train_lmdb"
 		# Change this to the absolute path to your data file
-    batch_size: 256
+    batch_size: 4
     backend: LMDB  			
 		# Change this number to a batch size that will fit on your GPU
     #shuffle: true
