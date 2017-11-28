@@ -7,8 +7,9 @@ layer {
   data_param { 
     source: "imageVelDataset/all_LMDB/indoor_train_lmdb"
 		# Change this to the absolute path to your data file
-    batch_size: 2#2
-    backend: LMDB  			
+    backend: LMDB 
+    batch_size: 1#2
+     			
 		# Change this number to a batch size that will fit on your GPU
     #shuffle: true
   }
@@ -813,12 +814,30 @@ layer {
   }
 }
 
+layer {
+  name: "fc7"
+  type: "InnerProduct"
+  bottom: "fc6"
+  top: "fc7"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  inner_product_param {
+    num_output: 3
+  }
+}
+
 #----------------------------------------------------------------------------
 #OLD LAYERS
 layer {
   name: "loss_2"
   type: "SoftmaxWithLoss"
-  bottom: "fc6"
+  bottom: "fc7"
   bottom: "label"
   top: "loss_2"
   softmax_param {engine: CAFFE}
@@ -827,7 +846,7 @@ layer {
 layer {
   name: "accuracy_2"
   type: "Accuracy"
-  bottom: "fc6"
+  bottom: "fc7"
   bottom: "label"
   top: "accuracy_2"
   top: "per_class_accuracy"
