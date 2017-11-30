@@ -1,15 +1,25 @@
 net: "SegNet/Models/classifier_train_UAO_indoor.prototxt"  	# Change this to the absolute path to your model file
 test_initialization: false
-test_iter: 1
-test_interval: 1000#10000000
+# test_iter specifies how many forward passes the test should carry out.
+test_iter: 15000
+# Carry out testing every 500 training iterations.
+test_interval: 15000
+# All parameters are from the cited paper above
 base_lr: 0.001
-lr_policy: "step"
-gamma: 1.0
-stepsize: 100000
-display: 20
 momentum: 0.9
-max_iter: 350000
-weight_decay: 0.0005
-snapshot: 1000
-snapshot_prefix: "SegNet/Models/Training/2_classifier_UAO_indoor"  	# Change this to the absolute path to where you wish to output solver snapshots
+#momentum2: 0.999
+# since Adam dynamically changes the learning rate, we set the base learning
+# rate to a fixed value
+lr_policy: "fixed"  #lr_policy: "step"
+# Display every 100 iterations
+display: 100
+# The maximum number of iterations
+max_iter: 1500000
+# snapshot intermediate results
+snapshot: 5000
+#gamma: 1.0
+#stepsize: 100000
+
+snapshot_prefix: "SegNet/Models/Training/5_classifier_UAO_indoor"  	# Change this to the absolute path to where you wish to output solver snapshots
+solver_type: 0#"ADAM"
 solver_mode: GPU
