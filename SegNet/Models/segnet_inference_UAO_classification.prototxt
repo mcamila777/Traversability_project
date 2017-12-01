@@ -5,7 +5,7 @@ layer {
   top: "data"
   top: "label"
   dense_image_data_param {
-    source:  "imageVelDataset/augmented_data_txt/data_class_0.txt"  #data_class_1.txt
+    source:  "imageVelDataset/augmented_data_txt/data_class_2.txt"  #data_class_1.txt
 
     batch_size: 1
   }

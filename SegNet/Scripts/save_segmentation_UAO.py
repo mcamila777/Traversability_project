@@ -12,6 +12,7 @@ import sys
 sys.path.insert(0, caffe_root + 'python')
 
 import caffe
+import cv2
 
 # Import arguments
 parser = argparse.ArgumentParser()
@@ -30,7 +31,7 @@ net = caffe.Net(args.model,
 #Gobal Acc
 glob_acc_accum = []
 
-savePath = '../Traversability_project/imageVelDataset/segmented_data/class_0' #class_1 class_2
+savePath = '../Traversability_project/imageVelDataset/segmented_data/class_2' #class_1 class_2
 
 
 for i in range(0, args.iter):
@@ -44,78 +45,14 @@ for i in range(0, args.iter):
 	output = np.squeeze(predicted[0,:,:,:])
 	ind = np.argmax(output, axis=0)
 
-	r = ind.copy()
-	g = ind.copy()
-	b = ind.copy()
-	r_gt = label.copy()
-	g_gt = label.copy()
-	b_gt = label.copy()
+	#print ind
 
-	Obstacles = [225, 13, 0]
-	path_robot = [149, 255, 0]
-	background = [255, 255, 255]
-
-	# Sky = [128,128,128]
-	# Building = [128,0,0]
-	# Pole = [192,192,128]...
+	fileName = "image_"+str(i) + ".jpg"
 
 
-	label_colours = np.array([Obstacles, path_robot, background])
-	for l in range(0,label_colours.shape[0]):
-		r[ind==l] = label_colours[l,0]
-		g[ind==l] = label_colours[l,1]
-		b[ind==l] = label_colours[l,2]
-		r_gt[label==l] = label_colours[l,0]
-		g_gt[label==l] = label_colours[l,1]
-		b_gt[label==l] = label_colours[l,2]
-
-	rgb = np.zeros((ind.shape[0], ind.shape[1], 3))
-	rgb[:,:,0] = r/255.0
-	rgb[:,:,1] = g/255.0
-	rgb[:,:,2] = b/255.0
-	rgb_gt = np.zeros((ind.shape[0], ind.shape[1], 3))
-	rgb_gt[:,:,0] = r_gt/255.0
-	rgb_gt[:,:,1] = g_gt/255.0
-	rgb_gt[:,:,2] = b_gt/255.0
-
-	image = image/255.0
-
-	image = np.transpose(image, (1,2,0))
-	output = np.transpose(output, (1,2,0))
-	image = image[:,:,(2,1,0)]
+	cv2.imwrite(os.path.join(savePath, fileName), ind)
 
 
-	#scipy.misc.toimage(rgb, cmin=0.0, cmax=255).save(IMAGE_FILE+'_segnet.png')
-
-	#Accuracy
-
-	#print("rgb_gt" , rgb_gt.shape)
-	#print("rgb" , rgb.shape)
-	diff =  rgb_gt-rgb
-	#Round to integer all the pixels values to consider the little differences between pixels negligible
-	diff = np.rint(diff)
-	r,c,l = diff.shape
-	#print("r,c,l", r,c,l)
-	#print("diff" , diff)
-	percent = 100.*(np.where(diff == 0)[0].shape[0])/(r*c*l)
-	
-	#consider zero numbers under 1e-07
-	#percent = 100.*(np.where((diff == 0) | (abs(diff)<1e-07))[0].shape[0])/(r*c*l)
-	
-	#The and operation doesn't consider the near pixel's values	
-	#	k = np.equal(rgb_gt,rgb)
-	#	percent = 100.*(np.where(k == True)[0].shape[0])/(r*c*l)
-
-	print("Percentage of accuracy: " , percent)
-
-	#Plotting
-	plt.figure()
-	plt.imshow(image,vmin=0, vmax=1)
-	plt.figure()
-	plt.imshow(rgb_gt,vmin=0, vmax=1)
-	plt.figure()
-	plt.imshow(rgb,vmin=0, vmax=1)
-	plt.show()
 
 
 print 'Success!'
