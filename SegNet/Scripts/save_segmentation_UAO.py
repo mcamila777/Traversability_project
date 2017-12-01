@@ -27,6 +27,12 @@ net = caffe.Net(args.model,
                 caffe.TEST)
 
 
+#Gobal Acc
+glob_acc_accum = []
+
+savePath = '../Traversability_project/imageVelDataset/segmented_data/class_0' #class_1 class_2
+
+
 for i in range(0, args.iter):
 
 	net.forward()
